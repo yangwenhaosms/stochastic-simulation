@@ -11,11 +11,11 @@ class Isingmodel(object):
         self.beta = 1.0 / (k * T)
         self.proposal_type = propasal_type
         self.decision_type = decisision_type
-        self.board = self._build_board()
+        self.board = None
+        self._init_board()
 
-    def _build_board(self):
-        board = np.random.choice((-1, 1), size=[self.N for _ in range(self.d)])
-        return board
+    def _init_board(self):
+        self.board = np.random.choice((-1, 1), size=[self.N for _ in range(self.d)])
 
     def _compute_H(self, board):
         board_copy = board.copy()
@@ -34,7 +34,7 @@ class Isingmodel(object):
         for i in range(iters):
             self.decision()
             H_record[i] = self._compute_H(self.board)
-        return H_record
+        return np.mean(H_record)
 
 
     def proposal(self):
