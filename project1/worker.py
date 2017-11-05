@@ -5,6 +5,7 @@ from multiprocessing import Process
 
 msgpack_numpy.patch()
 
+
 class Worker(Process):
     def __init__(self, url, work, i, iters=100000):
         super(Worker, self).__init__()
@@ -15,7 +16,7 @@ class Worker(Process):
 
     def run(self):
         context = zmq.Context()
-        ## zmq type 3 means REQ model
+        # zmq type 3 means REQ model
         socket = context.socket(3)
         socket.connect(self.url)
         while True:
@@ -26,4 +27,3 @@ class Worker(Process):
             print('This is worker ' + str(self.id))
             if message == b'break':
                 break
-

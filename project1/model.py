@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class Isingmodel(object):
     def __init__(self, d, N, J, h, k, T, propasal_type='singleflip', decisision_type='metropolis'):
         self.d = d
@@ -15,7 +16,8 @@ class Isingmodel(object):
         self._init_board()
 
     def _init_board(self):
-        self.board = np.random.choice((-1, 1), size=[self.N for _ in range(self.d)])
+        self.board = np.random.choice(
+            (-1, 1), size=[self.N for _ in range(self.d)])
 
     def _compute_H(self, board):
         board_copy = board.copy()
@@ -23,7 +25,8 @@ class Isingmodel(object):
         h2 = 0
         axes = np.array([i for i in range(self.d)])
         for _ in range(self.d):
-            new = np.concatenate((np.array([np.zeros(board_copy[-1].shape, dtype=np.int64)]), board_copy[:-1]))
+            new = np.concatenate(
+                (np.array([np.zeros(board_copy[-1].shape, dtype=np.int64)]), board_copy[:-1]))
             h2 += np.sum(new * board_copy)
             board_copy = np.transpose(board_copy, np.roll(axes, 1))
         H = - self.J * h2 - self.h * h1
@@ -36,7 +39,6 @@ class Isingmodel(object):
             H_record[i] = self._compute_H(self.board)
         return np.mean(H_record)
 
-
     def proposal(self):
         if self.proposal_type == 'singleflip':
             index1 = np.random.randint(self.N)
@@ -46,7 +48,8 @@ class Isingmodel(object):
             return board_new
         elif self.proposal_type == 'equiprob':
             while True:
-                board_new = np.random.choice((-1, 1), size=[self.N for _ in range(self.d)])
+                board_new = np.random.choice(
+                    (-1, 1), size=[self.N for _ in range(self.d)])
                 if not np.all(board_new == self.board):
                     return board_new
         else:
@@ -61,5 +64,5 @@ class Isingmodel(object):
                 self.board = new_board
             else:
                 prob = np.random.uniform()
-                if prob <= np.exp(-self.beta*(H2-H1)):
+                if prob <= np.exp(-self.beta * (H2 - H1)):
                     self.board = new_board
