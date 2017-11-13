@@ -18,7 +18,7 @@ if __name__ == '__main__':
     T = np.arange(10, 500, 10)
     res = np.zeros(T.shape)
     for i in range(len(T)):
-        res[i] = main(2, 100, 1, 0, 1, T, num_worker, 100000, 'ipc://homework')
+        res[i] = main(2, 100, 1, 0, 1, T[i], num_worker, 100000, 'ipc://homework')
     plt.plot(T, res)
     plt.xlabel("Temperature")
     plt.ylabel("U")
