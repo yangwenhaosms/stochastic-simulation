@@ -16,12 +16,19 @@ def main(d, n, j, h, k, t, num_worker, iters, url_worker):
 if __name__ == '__main__':
     num_worker = 32
     T = np.arange(10, 500, 10)
-    res = np.zeros(T.shape)
+    U = np.zeros(T.shape)
+    C = np.zeros(T.shape)
     for i in range(len(T)):
-        res[i] = main(2, 100, 1, 0, 1, T[i], num_worker, 100000, 'ipc://homework')
-    plt.plot(T, res)
+        res = main(2, 100, 1, 0, 1, T[i], num_worker, 100000, 'ipc://homework')
+        U[i] = np.mean(res) / (100 * 100)
+        C[i] = np.var(res) / (1 * T[i] * T[i] * 100 * 100)
+    plt.plot(T, U)
     plt.xlabel("Temperature")
     plt.ylabel("U")
     fig = plt.gcf()
     fig.savefig('1.eps', format='eps')
-
+    plt.plot(T, C)
+    plt.xlabel("Temperature")
+    plt.ylabel("C")
+    fig = plt.gcf()
+    fig.savefig('2.eps', format='eps')
