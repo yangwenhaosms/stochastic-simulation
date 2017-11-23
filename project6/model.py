@@ -1,0 +1,44 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+class Black_Scholes(object):
+    def __init__(self, mu, sigma, s0, t0, t1, n, method='Euler-Maruyama'):
+        self.mu = mu
+        self.sigma = sigma
+        self.s0 = s0
+        self.t0 = t0
+        self.t1 = t1
+        self.n = n
+        self.method = method
+        self.record_s = [self.s0]
+
+    def simulate(self):
+        if self.method == 'Euler-Maruyama':
+            for _ in range(self.n):
+                delta_w = np.random.normal(0.0, np.sqrt((self.t1 - self.t0)/self.n))
+                s = self.record_s[-1] + self.mu * self.record_s[-1] * (self.t1 - self.t0)/self.n \
+                    + self.sigma * self.record_s[-1] * delta_w
+                self.record_s.append(s)
+        elif self.method == 'Milstein':
+            for _ in range(self.n):
+                delta_w = np.random.normal(0.0, np.sqrt((self.t1 - self.t0) / self.n))
+                s = self.record_s[-1] + self.mu * self.record_s[-1] * (self.t1 - self.t0) / self.n \
+                    + self.sigma * self.record_s[-1] * delta_w \
+                    + 0.5 * self.sigma * self.sigma * self.record_s[-1] * (delta_w ** 2 - (self.t1 - self.t0) / self.n)
+                self.record_s.append(s)
+
+
+    def plot(self):
+        t = np.arange(self.t0, self.t1, (self.t1 - self.t0)/self.n)
+        t = np.append(t, self.t1)
+        plt.plot(t, self.record_s)
+        plt.xlabel('time')
+        plt.ylabel('s')
+        fig = plt.gcf()
+        fig.savefig('./result/{}-N:{}.eps'.format(self.method, self.n), format='eps')
+
+if __name__ == '__main__':
+    model = Black_Scholes(0.05, 0.2, 1, 0, 1, 1000, 'Milstein')
+    model.simulate()
+    model.plot()
+
