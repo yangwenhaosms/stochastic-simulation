@@ -8,5 +8,9 @@ Just run the following command:
 The default number of workers is 32. Please change the number of workers according to your machine's threading number before you run this file.
 
 ## Project 6
-There are three simulation methods 'Euler-Maruyama', 'Milstein scheme' and 'Multilevel Monte Carlo'. The first two method have been implemented in
-`$ project6/model.py`
+There are two simulation methods 'Euler-Maruyama', 'Milstein scheme'.
+
+Single Monte Carlo Method has been implemented. Please run the following command:
+`$ ipython project6/main.py -- --algorithm Euler-Maruyama --method mc`
+
+The default number of workers is `16` and divide the time into `2^8` and simulate `100000` times. The default would cost about `6s`
