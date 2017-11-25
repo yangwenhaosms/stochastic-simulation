@@ -8,7 +8,7 @@ class Black_Scholes(object):
         self.s0 = s0
         self.t0 = t0
         self.t1 = t1
-        self.n = n
+        self.n = 2**n
         self.method = method
         self.record_s = [self.s0]
 
@@ -26,19 +26,11 @@ class Black_Scholes(object):
                     + self.sigma * self.record_s[-1] * delta_w \
                     + 0.5 * self.sigma * self.sigma * self.record_s[-1] * (delta_w ** 2 - (self.t1 - self.t0) / self.n)
                 self.record_s.append(s)
-
-
-    def plot(self):
-        t = np.arange(self.t0, self.t1, (self.t1 - self.t0)/self.n)
-        t = np.append(t, self.t1)
-        plt.plot(t, self.record_s)
-        plt.xlabel('time')
-        plt.ylabel('s')
-        fig = plt.gcf()
-        fig.savefig('./result/{}-N:{}.eps'.format(self.method, self.n), format='eps')
+        res = self.record_s[-1]
+        self.record_s = [self.s0]
+        return res
 
 if __name__ == '__main__':
     model = Black_Scholes(0.05, 0.2, 1, 0, 1, 1000, 'Milstein')
     model.simulate()
-    model.plot()
 
