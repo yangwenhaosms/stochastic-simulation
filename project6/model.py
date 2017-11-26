@@ -30,7 +30,4 @@ class Black_Scholes(object):
         self.record_s = [self.s0]
         return res
 
-if __name__ == '__main__':
-    model = Black_Scholes(0.05, 0.2, 1, 0, 1, 1000, 'Milstein')
-    model.simulate()
 
