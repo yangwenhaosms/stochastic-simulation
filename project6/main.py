@@ -11,9 +11,10 @@ def train_mc(mu, sigma, s0, t0, t1, algorithm, n, url_worker, num_worker, iters)
     [w.start() for w in workers]
 
     sever = Server(url_worker, num_worker)
-    collection = sever.collect(maxlen=iters)
-    result = np.exp(-mu) * np.maximum(np.array(collection) - 1, 0)
-    return result
+    res_hat, res = sever.collect(maxlen=iters)
+    result_hat = np.exp(-mu) * np.maximum(np.array(res_hat) - 1, 0)
+    result = np.exp(-mu) * np.maximum(np.array(res) - 1, 0)
+    return result_hat, result
 
 def train_mmc(mu, sigma, s0, t0, t1, algorithm, url_worker, num_worker, iters, k):
     for i in range(k):
@@ -37,11 +38,19 @@ def main():
     parser.add_argument('--k', help='the number of multilevel mc', type=int, default=2)
     args = parser.parse_args()
     if args.method == 'mc':
-        res = train_mc(args.mu, args.sigma, args.s0, args.t0, args.t1, args.algorithm, args.n, args.url_worker, args.num_worker, args.iters)
-        plt.hist(res, 50)
-        plt.xlabel('P')
-        fig = plt.gcf()
-        fig.savefig('./result/{}-N:{}.eps'.format(args.algorithm, args.n))
+        res_hat, res = train_mc(args.mu, args.sigma, args.s0, args.t0, args.t1, args.algorithm, args.n, args.url_worker, args.num_worker, args.iters)
+        err = np.mean(np.abs(res_hat - res))
+        if args.algorithm == 'Euler-Maruyama':
+            scale = np.sqrt((args.t1 - args.t0)/args.n)
+        elif args.algorithm == 'Milstein':
+            scale = (args.t1 - args.t0) / args.n
+        else:
+            raise NotImplemented
+        print(err/scale)
+        # plt.hist(res, 50)
+        # plt.xlabel('P')
+        # fig = plt.gcf()
+        # fig.savefig('./result/{}-N:{}.eps'.format(args.algorithm, args.n))
     elif args.method == 'mmc':
         raise NotImplementedError
     else:

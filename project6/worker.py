@@ -19,8 +19,8 @@ class Worker(Process):
         socket = context.socket(3)
         socket.connect(self.url)
         while True:
-            result = self.work.simulate()
-            socket.send(msgpack.dumps(result))
+            res_hat, res = self.work.simulate()
+            socket.send(msgpack.dumps((res_hat, res)))
             message = socket.recv()
             if message == b'break':
                 break

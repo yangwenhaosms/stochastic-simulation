@@ -13,9 +13,12 @@ class Server(object):
         self.num_worker = num_worker
 
     def collect(self, maxlen=1000):
+        res_hat = []
         res = []
         while True:
-            res.append(msgpack.loads(self.socket.recv()))
+            r1, r2 = msgpack.loads(self.socket.recv())
+            res_hat.append(r1)
+            res.append(r2)
             if len(res) == maxlen:
                 self.socket.send(b'break')
                 for _ in range(self.num_worker - 1):
@@ -23,4 +26,4 @@ class Server(object):
                     self.socket.send(b'break')
                 break
             self.socket.send(b'continue')
-        return res
+        return res_hat, res

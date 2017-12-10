@@ -54,8 +54,8 @@ And the exact solution of $S_{t}$ is: $S_{t}=S_{0}e^{(r-\frac{1}{2}\sigma^{2})t+
 \end{align}
 And we care about the random variable $P=e^{-r}\max\{0,S_{1}-1\}$, which has following properties such as:
 \begin{align}
-  &\mathbb{P}(P=0)=\mathbb{P}(S_{1}\le 1)=\mathbb{P}(W_{1}\le\frac{1}{2}\sigma-\frac{r}{\sigma}-\frac{\log S_{0}}{\sigma})\notag\\
-  &\mathbb{P}(P>x)=\mathbb{P}(W_{1}>\frac{\log(xe^{r}+1)}{\sigma}-\frac{\log S_{0}}{\sigma}+\frac{\sigma}{2}-\frac{r}{\sigma})\notag\\
+  &\mathbb{P}(P=0)=\mathbb{P}(S_{1}\le 1)=\mathbb{P}(W_{1}\le\frac{1}{2}\sigma-\frac{r}{\sigma}-\frac{\log S_{0}}{\sigma})\\
+  &\mathbb{P}(P>x)=\mathbb{P}(W_{1}>\frac{\log(xe^{r}+1)}{\sigma}-\frac{\log S_{0}}{\sigma}+\frac{\sigma}{2}-\frac{r}{\sigma})\\
   &\mathbb{E}[P]=\int_{0}^{+\infty}\mathbb{P}(P>x)dx
 \end{align}
 \section{Numerical Approximation methods and Simulation results}
@@ -66,6 +66,13 @@ The first approximation method is called Euler-Maruyama:
   S_{t_{m+1}}^{(n)}=S_{t_{m}}^{(n)}+rS_{t_{m}}^{(n)}\Delta t_{m}+\sigma S_{t_{m}}^{(n)}\eta_{m}
 \end{align}
 where $\Delta t_{m}=T/n=\delta$ and $\eta_{m}=\Delta B_{t_{m}}\sim N(0,\delta)$
+
+\subsection{Euler-Maruyama Approximation Simulation Results}
+All of the parameters are set as: $S_{0}=1$, $r=0.05$ and $\sigma=0.2$. The properties of $P$ become as:
+\begin{align}
+  &\mathbb{P}(P=0)=\mathbb{P}(W_{1}\le -0.15)\\
+  &\mathbb{P}(P>x)=\mathbb{P}(W_{1}>5\log(xe^{0.05}+1)-0.15)
+\end{align}
 
 \subsection{Milstein Approximation}
 The second approximation method is called Milstein:
