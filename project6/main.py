@@ -58,7 +58,7 @@ def main():
         plt.xlabel('n')
         plt.ylabel('scaled error')
         fig = plt.gcf()
-        fig.savefig('./result/{}:{}.eps'.format(args.method, args.algorithm)) 
+        fig.savefig('./result/{}-{}.eps'.format(args.method, args.algorithm)) 
     elif args.method == 'mmc':
         raise NotImplementedError
     else:
