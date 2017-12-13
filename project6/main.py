@@ -58,7 +58,8 @@ def main():
         plt.xlabel('n')
         plt.ylabel('scaled error')
         fig = plt.gcf()
-        fig.savefig('./result/{}-{}.eps'.format(args.method, args.algorithm)) 
+        fig.savefig('./result/{}-{}.eps'.format(args.method, args.algorithm))
+        np.savetxt('./result/{}-{}.txt'.format(args.method, args.algorithm), np.array(ys), fmt='%f '*args.n)
     elif args.method == 'mmc':
         raise NotImplementedError
     else:
