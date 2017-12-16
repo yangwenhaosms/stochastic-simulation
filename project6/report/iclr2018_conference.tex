@@ -91,7 +91,7 @@ To reduce estimation variance, multilevel monte carlo is promoted. In this secti
 
 \subsection{Multilevel monte carlo}
 
-As our aim is to estimate the expectation $\mathbb{E}[f(S_{n, T})]$, where $n$ means discretize the time with $M^{-n}$. In this case, $M=2$ is always supposed. In fact the expectation can be rewritten as:
+As our aim is to estimate the expectation $\mathbb{E}[f(S_{n, T})]$, where $n$ means discretize the time with $M^{-n}$. In this report, $M=2$ is always supposed. In fact the expectation can be rewritten as:
 \begin{align}
   \mathbb{E}[f(S_{n, T})]=\mathbb{E}[f(S_{1, T})] + \sum_{k=2}^{n}\mathbb{E}[f(S_{k, T})-f(S_{k-1, T})]
 \end{align}
