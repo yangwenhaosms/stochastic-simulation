@@ -19,16 +19,10 @@ def train_mc(mu, sigma, s0, t0, t1, algorithm, n, url_worker, num_worker, iters)
     result = np.exp(-mu) * np.maximum(np.array(res) - 1, 0)
     return result_hat, result
 
-def train_mmc(mu, sigma, s0, t0, t1, algorithm, url_worker, num_worker, iters, k):
-    for i in range(k):
-        train_mc(mu, sigma, s0, t0, t1, algorithm, 6 + i, url_worker, num_worker, iters)
-    pass
-
 
 def main():
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('--algorithm', help='EM or Milsterin', type=str)
-    parser.add_argument('--method', help='MC or Multilevel MC', type=str)
     parser.add_argument('--t0', help='begin time', type=float, default=0.0)
     parser.add_argument('--t1', help='end time', type=float, default=1.0)
     parser.add_argument('--mu', help='drift rate', type=float, default=0.05)
@@ -38,32 +32,36 @@ def main():
     parser.add_argument('--url_worker', help='the url of worker', type=str, default='ipc://homework')
     parser.add_argument('--num_worker', help='the number of workers', type=int, default=16)
     parser.add_argument('--iters', help='the number of mc', type=int, default=int(1e5))
-    parser.add_argument('--k', help='the number of multilevel mc', type=int, default=2)
+    parser.add_argument('--strong', help='strong convergence or weak convergence', type=str, default='strong')
+
     args = parser.parse_args()
-    if args.method == 'mc':
-        xs = []
-        ys = []
-        for i in tqdm(range(args.n)):
-            res_hat, res = train_mc(args.mu, args.sigma, args.s0, args.t0, args.t1, args.algorithm, i+1, args.url_worker, args.num_worker, args.iters)
+
+    xs = []
+    ys = []
+    for i in tqdm(range(args.n)):
+        res_hat, res = train_mc(args.mu, args.sigma, args.s0, args.t0, args.t1, args.algorithm, i+1, args.url_worker, args.num_worker, args.iters)
+        if args.strong == 'strong':
             err = np.mean(np.abs(res_hat - res))
-            if args.algorithm == 'Euler-Maruyama':
+        elif args.strong == 'weak':
+            err = np.abs(np.mean(res_hat - res))
+        if args.algorithm == 'Euler-Maruyama':
+            if args.strong == 'strong':
                 scale = np.sqrt((args.t1 - args.t0)/args.n)
-            elif args.algorithm == 'Milstein':
+            elif args.strong == 'weak':
                 scale = (args.t1 - args.t0) / args.n
-            else:
-                raise NotImplemented
-            xs.append(i+1)
-            ys.append(err/scale)
-        plt.plot(xs, ys)
-        plt.xlabel('n')
-        plt.ylabel('scaled error')
-        fig = plt.gcf()
-        fig.savefig('./result/{}-{}.eps'.format(args.method, args.algorithm))
-        np.savetxt('./result/{}-{}.txt'.format(args.method, args.algorithm), np.array([ys]), fmt='%f '*args.n)
-    elif args.method == 'mmc':
-        raise NotImplementedError
-    else:
-        raise NotImplementedError
+        elif args.algorithm == 'Milstein':
+            scale = (args.t1 - args.t0) / args.n
+        else:
+            raise NotImplemented
+        xs.append(i+1)
+        ys.append(err/scale)
+    plt.plot(xs, ys)
+    plt.xlabel('n')
+    plt.ylabel('scaled error')
+    fig = plt.gcf()
+    fig.savefig('./result/mc-{}-{}.eps'.format(args.algorithm, args.strong))
+    np.savetxt('./result/mc-{}-{}.txt'.format(args.algorithm, args.weak), np.array([ys]), fmt='%f '*args.n)
+
 
 if __name__ == '__main__':
     t0 = time.time()
