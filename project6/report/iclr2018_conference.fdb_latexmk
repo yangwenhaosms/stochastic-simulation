@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex iclr2018_conference"] 1513266632 "iclr2018_conference.aux" "iclr2018_conference.bbl" "iclr2018_conference" 1513270190
+["bibtex iclr2018_conference"] 1513266632 "iclr2018_conference.aux" "iclr2018_conference.bbl" "iclr2018_conference" 1513431749
   "./iclr2018_conference.bst" 1513095873 26972 8bda286d28f25e0a6f68696559768f0a ""
-  "iclr2018_conference.aux" 1513270190 3551 76139d7c486dd2351955188f050559b8 ""
+  "iclr2018_conference.aux" 1513431749 3551 76139d7c486dd2351955188f050559b8 ""
   "iclr2018_conference.bib" 1513095873 446 8df9ab476e31ae8df7a20505f770e830 ""
   (generated)
-  "iclr2018_conference.bbl"
   "iclr2018_conference.blg"
-["pdflatex"] 1513270189 "iclr2018_conference.tex" "iclr2018_conference.pdf" "iclr2018_conference" 1513270190
+  "iclr2018_conference.bbl"
+["pdflatex"] 1513431749 "iclr2018_conference.tex" "iclr2018_conference.pdf" "iclr2018_conference" 1513431749
   "../result/mc.eps" 1513166352 19192 edd30a4e2d0dc4bddb67d1cfaae0fa66 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc" 1480098666 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
@@ -102,14 +102,14 @@
   "/usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt" 1507196681 4130359 3cefc52fca7652dd7d412b54ce191248 ""
   "/usr/local/texlive/2017/texmf.cnf" 1507196648 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
   "fancyhdr.sty" 1513095873 21006 088e3513a90ac3aa21515dd46e858ae4 ""
-  "iclr2018_conference.aux" 1513270190 3551 76139d7c486dd2351955188f050559b8 ""
+  "iclr2018_conference.aux" 1513431749 3551 76139d7c486dd2351955188f050559b8 ""
   "iclr2018_conference.bbl" 1513166633 738 aa3b7f4ac6d01d64f83c43377402efc7 "bibtex iclr2018_conference"
-  "iclr2018_conference.out" 1513270190 1311 1f1fa2a61e75bbce6372a48845512aee ""
+  "iclr2018_conference.out" 1513431749 1311 1f1fa2a61e75bbce6372a48845512aee ""
   "iclr2018_conference.sty" 1513095873 9154 b214363d45e27a46bfe70fbf84acca7b ""
-  "iclr2018_conference.tex" 1513270189 12342 fd1f73fbbb49cad593b3ead3e11daace ""
+  "iclr2018_conference.tex" 1513431748 12380 e7b88f2fa772d07f9646caa711ee6137 ""
   "natbib.sty" 1513095873 45154 40088ce024445d7ee2bca59e704cdd01 ""
   (generated)
-  "iclr2018_conference.out"
   "iclr2018_conference.aux"
-  "iclr2018_conference.log"
   "iclr2018_conference.pdf"
+  "iclr2018_conference.log"
+  "iclr2018_conference.out"
