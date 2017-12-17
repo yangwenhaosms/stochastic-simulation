@@ -55,11 +55,11 @@ def main():
         #     raise NotImplemented
         xs.append(i+1)
         ys.append(err)
-    plt.plot(xs, ys)
-    plt.xlabel('n')
-    plt.ylabel('error')
-    fig = plt.gcf()
-    fig.savefig('./result/mc-{}-{}.eps'.format(args.algorithm, args.strong))
+    # plt.plot(xs, ys)
+    # plt.xlabel('n')
+    # plt.ylabel('error')
+    # fig = plt.gcf()
+    # fig.savefig('./result/mc-{}-{}.eps'.format(args.algorithm, args.strong))
     np.savetxt('./result/mc-{}-{}.txt'.format(args.algorithm, args.strong), np.array([ys]), fmt='%f '*args.n)
 
 
