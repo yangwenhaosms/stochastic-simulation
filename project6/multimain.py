@@ -26,9 +26,9 @@ def train_mmc(mu, sigma, s0, t0, t1, algorithm, url_worker, num_worker, i, k):
     level = i+2
     for n in range(level):
         if n == 0:
-            iter = 2 ** (2*(level - 1 - n))
+            iter = 2 ** (2*(k - n))
         else:
-            iter = n**2 * 2 ** (2*(level - 1 - n))
+            iter = n**2 * 2 ** (2*(k - n))
         result_hat, result_hat_com, result = train_mc(mu, sigma, s0, t0, t1, algorithm, k-(i+1)+n, url_worker, num_worker, iter)
         res_hat += np.mean(result_hat - result_hat_com)
         res = np.concatenate([res, result])
