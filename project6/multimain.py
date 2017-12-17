@@ -59,7 +59,7 @@ def main():
     plt.ylabel('scaled error')
     fig = plt.gcf()
     fig.savefig('./result/mmc-{}.eps'.format(args.algorithm))
-    np.savetxt('./result/mmc-{}.txt'.format(args.algorithm), np.array([ys]), fmt='%f '*args.n)
+    np.savetxt('./result/mmc-{}.txt'.format(args.algorithm), np.array([ys]), fmt='%f '*args.k)
 
 
 if __name__ == '__main__':

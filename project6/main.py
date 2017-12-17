@@ -46,11 +46,11 @@ def main():
             err = np.abs(np.mean(res_hat - res))
         if args.algorithm == 'Euler-Maruyama':
             if args.strong == 'strong':
-                scale = np.sqrt((args.t1 - args.t0)/args.n)
+                scale = np.sqrt((args.t1 - args.t0)/2**args.n)
             elif args.strong == 'weak':
-                scale = (args.t1 - args.t0) / args.n
+                scale = (args.t1 - args.t0) / 2**args.n
         elif args.algorithm == 'Milstein':
-            scale = (args.t1 - args.t0) / args.n
+            scale = (args.t1 - args.t0) / 2**args.n
         else:
             raise NotImplemented
         xs.append(i+1)
