@@ -52,9 +52,8 @@ def main():
     ys = []
     for i in tqdm(range(args.k)):
         err = train_mmc(args.mu, args.sigma, args.s0, args.t0, args.t1, args.algorithm, args.url_worker, args.num_worker, i, args.k)
-        scale = (args.t1 - args.t0) / args.n
         xs.append(i+1)
-        ys.append(err/scale)
+        ys.append(err)
     plt.plot(xs, ys)
     plt.xlabel('n')
     plt.ylabel('scaled error')
