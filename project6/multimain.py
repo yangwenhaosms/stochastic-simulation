@@ -56,7 +56,7 @@ def main():
         ys.append(err)
     plt.plot(xs, ys)
     plt.xlabel('n')
-    plt.ylabel('scaled error')
+    plt.ylabel('error')
     fig = plt.gcf()
     fig.savefig('./result/mmc-{}.eps'.format(args.algorithm))
     np.savetxt('./result/mmc-{}.txt'.format(args.algorithm), np.array([ys]), fmt='%f '*args.k)
