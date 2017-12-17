@@ -31,7 +31,7 @@ def main():
     parser.add_argument('--n', help='discretise the time with 2^n', type=int, default=10)
     parser.add_argument('--url_worker', help='the url of worker', type=str, default='ipc://homework')
     parser.add_argument('--num_worker', help='the number of workers', type=int, default=16)
-    parser.add_argument('--iters', help='the number of mc', type=int, default=int(1e5))
+    parser.add_argument('--iters', help='the number of mc', type=int, default=int(1e6))
     parser.add_argument('--strong', help='strong convergence or weak convergence', type=str, default='strong')
 
     args = parser.parse_args()
