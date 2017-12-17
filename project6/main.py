@@ -44,20 +44,20 @@ def main():
             err = np.mean(np.abs(res_hat - res))
         elif args.strong == 'weak':
             err = np.abs(np.mean(res_hat - res))
-        if args.algorithm == 'Euler-Maruyama':
-            if args.strong == 'strong':
-                scale = np.sqrt((args.t1 - args.t0)/2**args.n)
-            elif args.strong == 'weak':
-                scale = (args.t1 - args.t0) / 2**args.n
-        elif args.algorithm == 'Milstein':
-            scale = (args.t1 - args.t0) / 2**args.n
-        else:
-            raise NotImplemented
+        # if args.algorithm == 'Euler-Maruyama':
+        #     if args.strong == 'strong':
+        #         scale = np.sqrt((args.t1 - args.t0)/2**args.n)
+        #     elif args.strong == 'weak':
+        #         scale = (args.t1 - args.t0) / 2**args.n
+        # elif args.algorithm == 'Milstein':
+        #     scale = (args.t1 - args.t0) / 2**args.n
+        # else:
+        #     raise NotImplemented
         xs.append(i+1)
-        ys.append(err/scale)
+        ys.append(err)
     plt.plot(xs, ys)
     plt.xlabel('n')
-    plt.ylabel('scaled error')
+    plt.ylabel('error')
     fig = plt.gcf()
     fig.savefig('./result/mc-{}-{}.eps'.format(args.algorithm, args.strong))
     np.savetxt('./result/mc-{}-{}.txt'.format(args.algorithm, args.strong), np.array([ys]), fmt='%f '*args.n)
