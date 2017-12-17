@@ -1,8 +1,8 @@
 import numpy as np
 import time
-from model import Black_Scholes
-from server import Server
-from worker import Worker
+from model import Black_Scholes_Multilevel
+from server import Server_Multilevel
+from worker import Worker_Multilevel
 import argparse
 import matplotlib
 matplotlib.use('Agg')
@@ -10,15 +10,15 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 
 def train_mc(mu, sigma, s0, t0, t1, algorithm, n, url_worker, num_worker, iters):
-    workers = [Worker(url_worker, Black_Scholes(mu, sigma, s0, t0, t1, n, method=algorithm), i) for i in range(num_worker)]
+    workers = [Worker_Multilevel(url_worker, Black_Scholes_Multilevel(mu, sigma, s0, t0, t1, n, method=algorithm), i) for i in range(num_worker)]
     [w.start() for w in workers]
 
-    sever = Server(url_worker, num_worker)
-    res_hat, res = sever.collect(maxlen=iters)
+    sever = Server_Multilevel(url_worker, num_worker)
+    res_hat, res_hat_com, res = sever.collect(maxlen=iters)
     result_hat = np.exp(-mu) * np.maximum(np.array(res_hat) - 1, 0)
+    result_hat_com = np.exp(-mu) * np.maximum(np.array(res_hat_com) - 1, 0)
     result = np.exp(-mu) * np.maximum(np.array(res) - 1, 0)
-    # result_hat needs to be changed
-    return result_hat, result
+    return result_hat, result_hat_com, result
 
 def train_mmc(mu, sigma, s0, t0, t1, algorithm, url_worker, num_worker, i, k):
     res_hat = 0
@@ -29,8 +29,8 @@ def train_mmc(mu, sigma, s0, t0, t1, algorithm, url_worker, num_worker, i, k):
             iter = 2 ** (level - 1 - n)
         else:
             iter = n * 2 ** (level - 1 - n)
-        result_hat, result = train_mc(mu, sigma, s0, t0, t1, algorithm, k-(i+1)+n, url_worker, num_worker, iter)
-        res_hat += np.mean(result_hat)
+        result_hat, result_hat_com, result = train_mc(mu, sigma, s0, t0, t1, algorithm, k-(i+1)+n, url_worker, num_worker, iter)
+        res_hat += np.mean(result_hat - result_hat_com)
         res = np.concatenate([res, result])
     err = np.abs(res_hat-np.mean(res))
     return err
@@ -59,8 +59,8 @@ def main():
     plt.xlabel('n')
     plt.ylabel('scaled error')
     fig = plt.gcf()
-    fig.savefig('./result/mc-{}-{}.eps'.format(args.algorithm, args.strong))
-    np.savetxt('./result/mc-{}-{}.txt'.format(args.algorithm, args.strong), np.array([ys]), fmt='%f '*args.n)
+    fig.savefig('./result/mmc-{}.eps'.format(args.algorithm))
+    np.savetxt('./result/mmc-{}.txt'.format(args.algorithm), np.array([ys]), fmt='%f '*args.n)
 
 
 if __name__ == '__main__':
