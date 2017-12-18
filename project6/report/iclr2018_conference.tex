@@ -77,11 +77,11 @@ The second approximation method is called Milstein:
 \end{align}
 
 \subsection{Simulation Results}
-All of the parameters are set as: $S_{0}=1$, $r=0.05$ and $\sigma=0.2$. In order to compare the efficiency of the two simulation methods, mean absolute error is taken as quanlification. As the orders of these two simulation methods are not the same, scaling factors $\sqrt{\delta}$ and $\delta$ are used for Euler-Maruyama and Milstein method, respectively.  The mean absolute errors of two simulation methods are shown in Fig~\ref{fig:1}, from which the Milstein method has a more quick convergence rate.
+All of the parameters are set as: $S_{0}=1$, $r=0.05$ and $\sigma=0.2$. In order to compare the efficiency of the two simulation methods, mean absolute error is taken as quanlification. As the orders of these two simulation methods are not the same, $\sqrt{\delta}$ and $\delta$ are two orders for Euler-Maruyama and Milstein method, respectively.  The mean absolute errors of two simulation methods are shown in Fig~\ref{fig:1}, from which the Milstein method has a more quick convergence rate because of higher order.
 \begin{figure}[htbp!]
   \centering
-  \includegraphics[width=\textwidth]{mc.eps}
-  \caption{Scaled errors}
+  \includegraphics[width=\textwidth]{mc-strong.eps}
+  \caption{Mean absolute errors}
   \label{fig:1}
 \end{figure}
 
@@ -89,7 +89,7 @@ Besides of comparison of strong convergence, weak convergence is also plotted in
 \begin{figure}[htbp!]
   \centering
   \includegraphics[width=\textwidth]{mc-weak.eps}
-  \caption{Scaled errors}
+  \caption{Absolute mean errors}
   \label{fig:2}
 \end{figure}
 

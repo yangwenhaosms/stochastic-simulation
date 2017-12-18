@@ -20,20 +20,12 @@ def train_mc(mu, sigma, s0, t0, t1, algorithm, n, url_worker, num_worker, iters)
     result = np.exp(-mu) * np.maximum(np.array(res) - 1, 0)
     return result_hat, result_hat_com, result
 
-def train_mmc(mu, sigma, s0, t0, t1, algorithm, url_worker, num_worker, i, k):
-    res_hat = 0
-    res = np.array([])
-    level = i+2
-    for n in range(level):
-        if n == 0:
-            iter = 2 ** (2*(k - n))
-        else:
-            iter = n**2 * 2 ** (2*(k - n))
-        result_hat, result_hat_com, result = train_mc(mu, sigma, s0, t0, t1, algorithm, k-(i+1)+n, url_worker, num_worker, iter)
-        res_hat += np.mean(result_hat - result_hat_com)
-        res = np.concatenate([res, result])
-    err = np.abs(res_hat-np.mean(res))
-    return err
+def get_variance(mu, sigma, s0, t0, t1, algorithm, url_worker, num_worker, k, iters=int(1e6)):
+    var = []
+    for i in tqdm(range(k)):
+        res_l, res_l_1, res = train_mc(mu, sigma, s0, t0, t1, algorithm, i+1, url_worker, num_worker, iters)
+        var.append(np.var(res_l - res_l_1))
+    return var
 
 def main():
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -48,18 +40,8 @@ def main():
     parser.add_argument('--num_worker', help='the number of workers', type=int, default=16)
     args = parser.parse_args()
 
-    xs = []
-    ys = []
-    for i in tqdm(range(args.k)):
-        err = train_mmc(args.mu, args.sigma, args.s0, args.t0, args.t1, args.algorithm, args.url_worker, args.num_worker, i, args.k)
-        xs.append(i+1)
-        ys.append(err)
-    plt.plot(xs, ys)
-    plt.xlabel('n')
-    plt.ylabel('error')
-    fig = plt.gcf()
-    fig.savefig('./result/mmc-{}.eps'.format(args.algorithm))
-    np.savetxt('./result/mmc-{}.txt'.format(args.algorithm), np.array([ys]), fmt='%f '*args.k)
+    var = get_variance(args.mu, args.sigma, args.s0, args.t0, args.t1, args.algorithm, args.url_worker, args.num_worker, args.k)
+    np.savetxt('./result/mmc-var-{}.txt'.format(args.algorithm), np.array([var]), fmt='%f '*args.k)
 
 
 if __name__ == '__main__':

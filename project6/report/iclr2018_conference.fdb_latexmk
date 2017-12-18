@@ -1,14 +1,14 @@
 # Fdb version 3
-["bibtex iclr2018_conference"] 1513440726 "iclr2018_conference.aux" "iclr2018_conference.bbl" "iclr2018_conference" 1513440728
+["bibtex iclr2018_conference"] 1513526055 "iclr2018_conference.aux" "iclr2018_conference.bbl" "iclr2018_conference" 1513526057
   "./iclr2018_conference.bst" 1513149372 26972 8bda286d28f25e0a6f68696559768f0a ""
-  "iclr2018_conference.aux" 1513440727 3703 0f683552c3b5d3da93e34cf251546b8d ""
+  "iclr2018_conference.aux" 1513526056 3731 995c318bfe9b6bcb49ed4834027eed0e ""
   "iclr2018_conference.bib" 1513149372 446 8df9ab476e31ae8df7a20505f770e830 ""
   (generated)
-  "iclr2018_conference.bbl"
   "iclr2018_conference.blg"
-["pdflatex"] 1513440726 "iclr2018_conference.tex" "iclr2018_conference.pdf" "iclr2018_conference" 1513440728
-  "../result/mc-weak.eps" 1513440591 16668 d444f9cbec37a718b6c05d0c406399e7 ""
-  "../result/mc.eps" 1513260987 19192 edd30a4e2d0dc4bddb67d1cfaae0fa66 ""
+  "iclr2018_conference.bbl"
+["pdflatex"] 1513526055 "iclr2018_conference.tex" "iclr2018_conference.pdf" "iclr2018_conference" 1513526057
+  "../result/mc-strong.eps" 1513525919 16129 21e0bf2108cc243f824673c2e4b8d532 ""
+  "../result/mc-weak.eps" 1513525919 16850 9f1341d1d2399b9920ee18db1c5d525b ""
   "e:/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc" 1509796324 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "e:/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1509796506 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "e:/texlive/2017/texmf-dist/fonts/tfm/adobe/courier/pcrr7t.tfm" 1509796221 960 379cc0019370a9e0208a0a3f949f847a ""
@@ -103,14 +103,14 @@
   "e:/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt" 1509798633 4127104 99e7e7545bc40ab76a7011f347764d79 ""
   "e:/texlive/2017/texmf.cnf" 1509798493 673 4ae7b2f49cee444c5343a45b5d0f169c ""
   "fancyhdr.sty" 1513149372 21006 e5d13d98d57bd53d4fed3aa61bd29c86 ""
-  "iclr2018_conference.aux" 1513440727 3703 0f683552c3b5d3da93e34cf251546b8d ""
-  "iclr2018_conference.bbl" 1513440726 738 aa3b7f4ac6d01d64f83c43377402efc7 "bibtex iclr2018_conference"
-  "iclr2018_conference.out" 1513440727 1311 1f1fa2a61e75bbce6372a48845512aee ""
+  "iclr2018_conference.aux" 1513526056 3731 995c318bfe9b6bcb49ed4834027eed0e ""
+  "iclr2018_conference.bbl" 1513526055 738 aa3b7f4ac6d01d64f83c43377402efc7 "bibtex iclr2018_conference"
+  "iclr2018_conference.out" 1513526056 1311 1f1fa2a61e75bbce6372a48845512aee ""
   "iclr2018_conference.sty" 1513149372 9154 b214363d45e27a46bfe70fbf84acca7b ""
-  "iclr2018_conference.tex" 1513440724 12756 f727dbd71b28e02a1c69c6fc91342703 ""
+  "iclr2018_conference.tex" 1513526053 12791 6bd52310b953d1c10886b8d337de699e ""
   "natbib.sty" 1513149372 45154 40088ce024445d7ee2bca59e704cdd01 ""
   (generated)
-  "iclr2018_conference.out"
   "iclr2018_conference.log"
   "iclr2018_conference.aux"
+  "iclr2018_conference.out"
   "iclr2018_conference.pdf"
