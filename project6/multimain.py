@@ -57,7 +57,7 @@ def main():
     args = parser.parse_args()
 
     var = get_variance(args.mu, args.sigma, args.s0, args.t0, args.t1, args.algorithm, args.url_worker, args.num_worker, args.k)
-    np.savetxt('./result/mmc-var-{}.txt'.format(args.algorithm), np.array([var]), fmt='%f '*args.k)
+    np.savetxt('./result/mmc-var-{}.txt'.format(args.algorithm), np.array([var]), fmt='%f '*(1+args.k))
 
 
 if __name__ == '__main__':
