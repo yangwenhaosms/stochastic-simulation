@@ -39,7 +39,8 @@ def mul_main(mu, sigma, s0, t0, t1, algorithm, url_worker, num_worker, k, epsilo
     res_hat = np.mean(res)
     for i in range(k):
         res_l, res_l_1, _ = train_mmc(mu, sigma, s0, t0, t1, algorithm, i+1, url_worker, num_worker, num_sample[i+1])
-        res_hat += np.mean(res_l - res_l-1)
+        res_hat += np.mean(res_l - res_l_1)
+    return res_hat
 
 
 
@@ -57,13 +58,15 @@ def main():
     args = parser.parse_args()
 
     # var = get_variance(args.mu, args.sigma, args.s0, args.t0, args.t1, args.algorithm, args.url_worker, args.num_worker, args.k)
-    # np.savetxt('./result/mmc-var-{}.txt'.format(args.algorithm), np.array([var]), fmt='%f '*args.k)
+    # np.savetxt('./result/mmc-var-{}.txt'.format(args.algorithm), np.array([var]), fmt='%f '*(1+args.k))
 
     epsilons = [0.1, 0.01, 0.001, 0.0001]
     baseline = train_mc(args.mu, args.sigma, args.s0, args.t0, args.t1, args.algorithm, 0, args.url_worker, args.num_worker, int(1e6))
+    err = []
     for epsilon in epsilons:
-        res = mul_main
-
+        res = mul_main(args.mu, args.sigma, args.s0, args.t0, args.t1, args.algorithm, args.url_worker, args.num_worker, args.k, epsilon)
+        err.append(np.abs(res - baseline))
+    np.savetxt('./result/mmc-err-{}.txt'.format(args.algorithm), np.array([err]), fmt='%f '*len(epsilons))
 
 if __name__ == '__main__':
     t0 = time.time()
