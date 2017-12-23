@@ -4,6 +4,7 @@
 \usepackage{url}
 \usepackage{graphicx}
 \usepackage{epstopdf}
+\usepackage{hyperref}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 
@@ -38,7 +39,7 @@ Peking University\\
 \maketitle
 
 \begin{abstract}
-In this report, I discover the theoritical results and simulation results of stochastic differential equation on Black-Scholes model. The two simulation algorithms are Euler-Maruyama and Milstein scheme. Besides, multilevel monte carlo method is also applied to this model to make comparison with single monte carlo method.
+In this report, I figure out the theoritical results and simulation results of stochastic differential equation on Black-Scholes model. The two simulation algorithms are Euler-Maruyama and Milstein scheme. Besides, multilevel monte carlo method is also applied to this model to make comparison with single monte carlo method.
 \end{abstract}
 
 \section{Model description and theoritical results}
@@ -97,9 +98,7 @@ Besides of comparison of strong convergence, weak convergence is also plotted in
 \section{Multilevel Monte Carlo Simulation method}
 
 To reduce estimation variance, multilevel monte carlo is promoted. In this section, multilevel monte carlo method is used to simulate the Black-Scholes model.
-
-\subsection{Multilevel monte carlo}
-
+\subsection{Multilevel Monte Carlo}
 As our aim is to estimate the expectation $\mathbb{E}[f(S_{n, T})]$ to approximate $\mathbb{E}[f(S_{T})]$, where $n$ means discretize the time with $M^{-n}$. In this report, $M=2$ is always supposed. In fact the expectation can be rewritten as:
 \begin{align}
   \mathbb{E}[f(S_{n, T})]=\mathbb{E}[f(S_{1, T})] + \sum_{k=2}^{n}\mathbb{E}[f(S_{k, T})-f(S_{k-1, T})]
@@ -115,178 +114,37 @@ To reduce variance, for each $k$, $f(S_{k,T}^{(i)})-f(S_{k-1,T}^{(i)})$ is indep
   Var[\widehat{f}(S_{n, T})]=\sum_{k=1}^{n}\frac{V_{k}}{N_{k}}
 \end{align}
 where $V_{k}=Var[f(S_{k, T})-f(S_{k-1, T})]$
-
-Here we give an investigation on $V_{k}$ in Fig~\ref{fig:3}. The variance reduces as level goes high. So we can simulate less for higher levels but higher for lower levels.
+\subsection{Simulation Results}
+All the parameters are set the same as before and the maximum level is set as $L=10$. For each level, $10^{6}$ times monte carlo is used to do estimation. Here we give an investigation on $V_{k}$ in Fig~\ref{fig:3}, where the x-axis is the level $l$ and y-axis is the estiamtion variance $V_{l}$. The variance reduces as level goes high. So we can simulate less for higher levels but higher for lower levels. Here we leave the variance of $V_{0}$ as it performs the same under both algorithms.
 \begin{figure}[htbp!]
   \centering
   \includegraphics[width=\textwidth]{mmc-var.eps}
   \caption{Variance}
   \label{fig:3}
 \end{figure}
-\section{General formatting instructions}
-\label{gen_inst}
 
-The text must be confined within a rectangle 5.5~inches (33~picas) wide and
-9~inches (54~picas) long. The left margin is 1.5~inch (9~picas).
-Use 10~point type with a vertical spacing of 11~points. Times New Roman is the
-preferred typeface throughout. Paragraphs are separated by 1/2~line space,
-with no indentation.
+According to \cite{Giles2008Multilevel}, the number of sampling at each level could be decided by:
+\begin{align}
+  N_{l} = \biggl\lceil 2\varepsilon^{-2}\sqrt{V_{l}h_{l}}(\sum_{l=0}^{L}\sqrt{V_{l}/h_{l}})\biggr\rceil\qquad
+\end{align}
+where $h_{l}=M^{-l}T$.
 
-Paper title is 17~point, in small caps and left-aligned.
-All pages should start at 1~inch (6~picas) from the top of the page.
+Different convergence accuracies $\varepsilon$ are set as $0.1,0.01,0.001,0.0001$. So the absolute mean errors $|\mathbb{E}f(S_{L, T}) - \mathbb{E}f(S_{T})|$ for different accuracy are shown in Fig~\ref{fig:4}, from which we could find that the two algorithms have nearly the same performace on convergence. That is because only weak convergence could be test while strong convergence can't compute because of multilevel estimation. So it is nothing strange to find out the same performance because these two algorithms have same weak convergence order.
 
-Authors' names are
-set in boldface, and each name is placed above its corresponding
-address. The lead author's name is to be listed first, and
-the co-authors' names are set to follow. Authors sharing the
-same address can be on the same line.
-
-Please pay special attention to the instructions in section \ref{others}
-regarding figures, tables, acknowledgments, and references.
-
-\section{Headings: first level}
-\label{headings}
-
-First level headings are in small caps,
-flush left and in point size 12. One line space before the first level
-heading and 1/2~line space after the first level heading.
-
-\subsection{Headings: second level}
-
-Second level headings are in small caps,
-flush left and in point size 10. One line space before the second level
-heading and 1/2~line space after the second level heading.
-
-\subsubsection{Headings: third level}
-
-Third level headings are in small caps,
-flush left and in point size 10. One line space before the third level
-heading and 1/2~line space after the third level heading.
-
-\section{Citations, figures, tables, references}
-\label{others}
-
-These instructions apply to everyone, regardless of the formatter being used.
-
-\subsection{Citations within the text}
-
-Citations within the text should be based on the \texttt{natbib} package
-and include the authors' last names and year (with the ``et~al.'' construct
-for more than two authors). When the authors or the publication are
-included in the sentence, the citation should not be in parenthesis (as
-in ``See \citet{Hinton06} for more information.''). Otherwise, the citation
-should be in parenthesis (as in ``Deep learning shows promise to make progress towards AI~\citep{Bengio+chapter2007}.'').
-
-The corresponding references are to be listed in alphabetical order of
-authors, in the \textsc{References} section. As to the format of the
-references themselves, any style is acceptable as long as it is used
-consistently.
-
-\subsection{Footnotes}
-
-Indicate footnotes with a number\footnote{Sample of the first footnote} in the
-text. Place the footnotes at the bottom of the page on which they appear.
-Precede the footnote with a horizontal rule of 2~inches
-(12~picas).\footnote{Sample of the second footnote}
-
-\subsection{Figures}
-
-All artwork must be neat, clean, and legible. Lines should be dark
-enough for purposes of reproduction; art work should not be
-hand-drawn. The figure number and caption always appear after the
-figure. Place one line space before the figure caption, and one line
-space after the figure. The figure caption is lower case (except for
-first word and proper nouns); figures are numbered consecutively.
-
-Make sure the figure caption does not get separated from the figure.
-Leave sufficient space to avoid splitting the figure and figure caption.
-
-You may use color figures.
-However, it is best for the
-figure captions and the paper body to make sense if the paper is printed
-either in black/white or in color.
-\begin{figure}[h]
-\begin{center}
-%\framebox[4.0in]{$\;$}
-\fbox{\rule[-.5cm]{0cm}{4cm} \rule[-.5cm]{4cm}{0cm}}
-\end{center}
-\caption{Sample figure caption.}
+However, it is not to say these two algorithms are the same good in terms of multilevel monte carlo. From Fig~\ref{fig:3} we find that Euler-Maruyama method has a higher variance than Milstein method, which means that Euler-Maruyama method should take more samples than Milstein method do. In terms of time cost, Milstein method has a better performance.
+\begin{figure}[htbp!]
+  \centering
+  \includegraphics[width=\textwidth]{mmc-err.eps}
+  \caption{Error}
+  \label{fig:4}
 \end{figure}
 
-\subsection{Tables}
-
-All tables must be centered, neat, clean and legible. Do not use hand-drawn
-tables. The table number and title always appear before the table. See
-Table~\ref{sample-table}.
-
-Place one line space before the table title, one line space after the table
-title, and one line space after the table. The table title must be lower case
-(except for first word and proper nouns); tables are numbered consecutively.
-
-\begin{table}[t]
-\caption{Sample table title}
-\label{sample-table}
-\begin{center}
-\begin{tabular}{ll}
-\multicolumn{1}{c}{\bf PART}  &\multicolumn{1}{c}{\bf DESCRIPTION}
-\\ \hline \\
-Dendrite         &Input terminal \\
-Axon             &Output terminal \\
-Soma             &Cell body (contains cell nucleus) \\
-\end{tabular}
-\end{center}
-\end{table}
-
-\section{Final instructions}
-Do not change any aspects of the formatting parameters in the style files.
-In particular, do not modify the width or length of the rectangle the text
-should fit into, and do not change font sizes (except perhaps in the
-\textsc{References} section; see below). Please note that pages should be
-numbered.
-
-\section{Preparing PostScript or PDF files}
-
-Please prepare PostScript or PDF files with paper size ``US Letter'', and
-not, for example, ``A4''. The -t
-letter option on dvips will produce US Letter files.
-
-Consider directly generating PDF files using \verb+pdflatex+
-(especially if you are a MiKTeX user).
-PDF figures must be substituted for EPS figures, however.
-
-Otherwise, please generate your PostScript and PDF files with the following commands:
-\begin{verbatim}
-dvips mypaper.dvi -t letter -Ppdf -G0 -o mypaper.ps
-ps2pdf mypaper.ps mypaper.pdf
-\end{verbatim}
-
-\subsection{Margins in LaTeX}
-
-Most of the margin problems come from figures positioned by hand using
-\verb+\special+ or other commands. We suggest using the command
-\verb+\includegraphics+
-from the graphicx package. Always specify the figure width as a multiple of
-the line width as in the example below using .eps graphics
-\begin{verbatim}
-   \usepackage[dvips]{graphicx} ...
-   \includegraphics[width=0.8\linewidth]{myfile.eps}
-\end{verbatim}
-or % Apr 2009 addition
-\begin{verbatim}
-   \usepackage[pdftex]{graphicx} ...
-   \includegraphics[width=0.8\linewidth]{myfile.pdf}
-\end{verbatim}
-for .pdf graphics.
-See section~4.4 in the graphics bundle documentation (\url{http://www.ctan.org/tex-archive/macros/latex/required/graphics/grfguide.ps})
-
-A number of width problems arise when LaTeX cannot properly hyphenate a
-line. Please give LaTeX hyphenation hints using the \verb+\-+ command.
-
+\subsubsection*{Experiment Details}
+All of my code and results can be found on website \url{https://github.com/yangwenh/stochastic-simulation}. The mainly parallel method is asynchronized algorithm, which is implemented by ZMQ.
 
 \subsubsection*{Acknowledgments}
 
-Use unnumbered third level headings for the acknowledgments. All
-acknowledgments, including those to funding agencies, go at the end of the paper.
+I would like to thank Prof Li giving me a oppertunity to do research on stochastic differential equation. Thank Teaching Assistant Xiong helps to figure out my problems on the research topic. Thank Deep Learning Lab providing me computation resources.
 
 \bibliography{iclr2018_conference}
 \bibliographystyle{iclr2018_conference}
