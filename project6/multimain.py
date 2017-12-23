@@ -38,6 +38,8 @@ def mul_main(mu, sigma, s0, t0, t1, algorithm, url_worker, num_worker, k, epsilo
     res, _ = train_mc(mu, sigma, s0, t0, t1, algorithm, 0, url_worker, num_worker, num_sample[0])
     res_hat = np.mean(res)
     for i in range(k):
+        if num_sample[i+1] == 0:
+            continue
         res_l, res_l_1, _ = train_mmc(mu, sigma, s0, t0, t1, algorithm, i+1, url_worker, num_worker, num_sample[i+1])
         res_hat += np.mean(res_l - res_l_1)
     return res_hat
@@ -61,9 +63,10 @@ def main():
     # np.savetxt('./result/mmc-var-{}.txt'.format(args.algorithm), np.array([var]), fmt='%f '*(1+args.k))
 
     epsilons = [0.1, 0.01, 0.001, 0.0001]
-    baseline = train_mc(args.mu, args.sigma, args.s0, args.t0, args.t1, args.algorithm, 0, args.url_worker, args.num_worker, int(1e6))
+    base_res_hat, base_res = train_mc(args.mu, args.sigma, args.s0, args.t0, args.t1, args.algorithm, 0, args.url_worker, args.num_worker, int(1e6))
+    baseline = np.mean(base_res)
     err = []
-    for epsilon in epsilons:
+    for epsilon in tqdm(epsilons):
         res = mul_main(args.mu, args.sigma, args.s0, args.t0, args.t1, args.algorithm, args.url_worker, args.num_worker, args.k, epsilon)
         err.append(np.abs(res - baseline))
     np.savetxt('./result/mmc-err-{}.txt'.format(args.algorithm), np.array([err]), fmt='%f '*len(epsilons))
