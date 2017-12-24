@@ -3,6 +3,8 @@ These are my course projects of Stochastic Simulation in Peking University. Plea
 ## Project 1
 Just run the following command:
 
+`$ cd project1`
+
 `$ python main.py`
 
 The default number of workers is 32. Please change the number of workers according to your machine's threading number before you run this file.
