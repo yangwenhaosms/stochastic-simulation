@@ -11,7 +11,7 @@ def get_spacing(order, number):
     eigenvals = matrice.get_eigen_values()
     diff = np.diff(eigenvals, axis=1)
     diff_scale = diff / np.mean(diff, axis=0)
-    np.savetxt('./result/N-{}'.format(order))
+    np.savetxt('./result/N-{}'.format(order), diff_scale)
 
 def main():
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
