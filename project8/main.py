@@ -1,6 +1,6 @@
 import numpy as np
 import time
-from model import GOE, GUE, GOE_EIG, GUE_EIG
+from model import GOE, GUE, GOE_EIG, GUE_EIG, RW_EIG
 from server import Server
 from worker import Worker
 import argparse
@@ -29,6 +29,10 @@ def get_eigenvalue(type, order):
         matrix = GUE_EIG(order)
         eigenvals = matrix.get_eigen_values()
         np.savetxt('./result/GUE-EIG-N-{}.txt'.format(order), eigenvals)
+    elif type == 'RW':
+        matrix = RW_EIG(order)
+        eigenvals = matrix.get_eigen_values()
+        np.savetxt('./result/RW-EIG-N-{}.txt'.format(order), eigenvals)
 
 
 def main():
