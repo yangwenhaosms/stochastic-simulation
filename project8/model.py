@@ -28,4 +28,30 @@ class GUE(object):
     def get_eigen_values(self):
         return np.sort(np.linalg.eigvals(self.objs).astype(np.float32), axis=1)
 
+class GOE_EIG(object):
+    def __init__(self, order):
+        self.order = order
+        self.gen()
+
+    def gen(self):
+        objs = np.random.normal(0, 1, (self.order, self.order))
+        self.objs = ((objs + np.transpose(objs)) / np.sqrt(2)) * np.sqrt(2/self.order)
+
+    def get_eigen_values(self):
+        return np.linalg.eigvals(self.objs)
+
+class GUE_EIG(object):
+    def __init__(self, order):
+        self.order = order
+        self.gen()
+
+    def gen(self):
+        re = np.random.normal(0, 1, (self.order, self.order))
+        im = np.random.normal(0, 1, (self.order, self.order))
+        self.objs = ((re + np.transpose(re))/2 + (im - np.transpose(im))/2 * 1j) * np.sqrt(2/self.order)
+
+    def get_eigen_values(self):
+        return np.linalg.eigvals(self.objs)
+
+
 

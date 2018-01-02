@@ -1,6 +1,6 @@
 import numpy as np
 import time
-from model import GOE, GUE
+from model import GOE, GUE, GOE_EIG, GUE_EIG
 from server import Server
 from worker import Worker
 import argparse
@@ -20,6 +20,17 @@ def get_spacing(type, order, number):
         diff_scale = diff / np.mean(diff, axis=0)
         np.savetxt('./result/GUE-N-{}.txt'.format(order), diff_scale)
 
+def get_eigenvalue(type, order):
+    if type == 'GOE':
+        matrix = GOE_EIG(order)
+        eigenvals = matrix.get_eigen_values()
+        np.savetxt('./result/GOE-EIG-N-{}.txt'.format(order), eigenvals)
+    elif type == 'GUE':
+        matrix = GUE_EIG(order)
+        eigenvals = matrix.get_eigen_values()
+        np.savetxt('./result/GUE-EIG-N-{}.txt'.format(order), eigenvals)
+
+
 def main():
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('--type', help='ensemble type', type=str, default='GOE')
@@ -27,7 +38,8 @@ def main():
     parser.add_argument('--number', help='number of matrice', type=int, default=int(1e6))
     args = parser.parse_args()
 
-    get_spacing(args.type, args.order, args.number)
+    #get_spacing(args.type, args.order, args.number)
+    get_eigenvalue(args.type, args.order)
 
 
 if __name__ == '__main__':
