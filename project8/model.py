@@ -53,5 +53,19 @@ class GUE_EIG(object):
     def get_eigen_values(self):
         return np.linalg.eigvals(self.objs).astype(np.float32)
 
+class RW_EIG(object):
+    def __init__(self, order):
+        self.order = order
+        self.gen()
+
+    def gen(self):
+        objs = np.triu(np.random.normal(0, 1, (self.order, self.order)))
+        self.objs = ((objs + np.transpose(objs) - np.diag(np.diag(objs)))) * np.sqrt(1/self.order)
+
+    def get_eigen_values(self):
+        return np.linalg.eigvals(self.objs)
+
+
+
 
 
