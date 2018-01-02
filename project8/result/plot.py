@@ -2,14 +2,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 if __name__ == '__main__':
-    x = np.loadtxt('./mmc-err-Euler-Maruyama.txt')
-    y = np.loadtxt('./mmc-err-Milstein.txt')
-    a = np.arange(1, 5, 1)
-    plt.plot(a, x)
-    plt.plot(a, y)
-    plt.xlabel('-log(Epsilon)')
-    plt.ylabel('Absolute mean error')
-    label = ['Euler-Maruyama', 'Milstein']
-    plt.legend(label, loc = 'upper right')
+    x = np.loadtxt('./GUE-N-10.txt')[:,-1]
+    plt.hist(x, 500)
+    mean = np.mean(x)
+    var = np.var(x)
+    plt.xlabel('scaled spaceing')
+    plt.title(r'Histogram: $\mu={:.3f}$, $\sigma={:.3f}$'.format(mean, np.sqrt(var)))
     fig = plt.gcf()
-    fig.savefig('./mmc-err.eps')
+    fig.savefig('./GUE-N-10.eps')
