@@ -51,7 +51,7 @@ class GUE_EIG(object):
         self.objs = ((re + np.transpose(re))/2 + (im - np.transpose(im))/2 * 1j) * np.sqrt(1/self.order)
 
     def get_eigen_values(self):
-        return np.linalg.eigvals(self.objs)
+        return np.linalg.eigvals(self.objs).astype(np.float32)
 
 
 
