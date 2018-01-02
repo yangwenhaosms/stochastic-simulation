@@ -35,7 +35,7 @@ class GOE_EIG(object):
 
     def gen(self):
         objs = np.random.normal(0, 1, (self.order, self.order))
-        self.objs = ((objs + np.transpose(objs)) / np.sqrt(2)) * np.sqrt(2/self.order)
+        self.objs = ((objs + np.transpose(objs)) / np.sqrt(2)) * np.sqrt(1/self.order)
 
     def get_eigen_values(self):
         return np.linalg.eigvals(self.objs)
@@ -48,7 +48,7 @@ class GUE_EIG(object):
     def gen(self):
         re = np.random.normal(0, 1, (self.order, self.order))
         im = np.random.normal(0, 1, (self.order, self.order))
-        self.objs = ((re + np.transpose(re))/2 + (im - np.transpose(im))/2 * 1j) * np.sqrt(2/self.order)
+        self.objs = ((re + np.transpose(re))/2 + (im - np.transpose(im))/2 * 1j) * np.sqrt(1/self.order)
 
     def get_eigen_values(self):
         return np.linalg.eigvals(self.objs)
