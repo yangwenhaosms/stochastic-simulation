@@ -1,3 +1,6 @@
+# 免责声明
+此作业仅供参考，抄作业后果自负
+
 # Stochastic Simulation
 These are my course projects of Stochastic Simulation in Peking University. Please refer to Professor Li's [website](http://dsec.pku.edu.cn/~tieli/) for more project details. If you have any problems, please contact me with **yangwhsms@gmail.com**
 
