@@ -1,6 +1,3 @@
-# 免责声明
-此作业仅供参考，抄作业后果自负
-
 # Stochastic Simulation
 These are my course projects of Stochastic Simulation in Peking University. Please refer to Professor Li's [website](http://dsec.pku.edu.cn/~tieli/) for more project details. If you have any problems, please contact me with **yangwhsms@gmail.com**
 
@@ -14,3 +11,6 @@ Single Monte Carlo Method has been implemented. Please run the following command
 `$ python main.py -- --algorithm Euler-Maruyama --method mc`
 
 The default number of workers is `16` and divide the time into `2^8` and simulate `100000` times. The default would cost about `6s`
+
+## 免责声明
+此作业仅供参考，抄作业后果自负
